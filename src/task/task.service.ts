@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import {Task} from '../scheme/task.schema'
 import {Model} from 'mongoose'
+import {CreateTaskDto } from '../dto/create-task.dto'
+import { UpdateTaskDto } from '../dto/update-task.dto';
+
 
 @Injectable()
 export class TaskService {
@@ -10,10 +13,10 @@ export class TaskService {
     async findAll(){
         return await this.taskModel.find()
     }
-    async create(data:{title:string,description?:string}){
+    async create(data:CreateTaskDto){
         return await this.taskModel.create(data)
     }
-    async update(id:string,data:{title?:string,description?:string,done?:boolean}){
+    async update(id:string,data:UpdateTaskDto){
         return await this.taskModel.findByIdAndUpdate
         (id,data,{new:true})
     }
