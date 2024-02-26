@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, ConflictException, NotFoundException, HttpCode } from '@nestjs/common';
 import { TaskService } from './task.service';
 import {CreateTaskDto } from '../dto/create-task.dto'
+import {UpdateTaskDto } from '../dto/update-task.dto'
 
 @Controller('tasks')
 export class TaskController {
@@ -25,7 +26,7 @@ export class TaskController {
         }
     }
     @Put(':id')
-    async update(@Param('id') id:string,@Body() body:CreateTaskDto){
+    async update(@Param('id') id:string,@Body() body:UpdateTaskDto){
         const task = await this.taskService.update(id,body)
         if (!task) throw new NotFoundException('Task not found')
         return task
